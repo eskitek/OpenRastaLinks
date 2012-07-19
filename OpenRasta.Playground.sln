@@ -3,6 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRasta.Api.Basket.Acceptance.Tests", "OpenRasta.Api.Basket.Acceptance.Tests\OpenRasta.Api.Basket.Acceptance.Tests.csproj", "{140BC4C9-AE96-4269-9CFC-9EFF3E2B0803}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{32395B0D-1D0E-40F1-96D8-71819F4F32D3}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\nuget.exe = .nuget\nuget.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRasta.Api.Basket", "OpenRasta.Api.Basket\OpenRasta.Api.Basket.csproj", "{D623AD23-65F5-4A63-90CD-674EFFB0F86F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +22,10 @@ Global
 		{140BC4C9-AE96-4269-9CFC-9EFF3E2B0803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{140BC4C9-AE96-4269-9CFC-9EFF3E2B0803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{140BC4C9-AE96-4269-9CFC-9EFF3E2B0803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
