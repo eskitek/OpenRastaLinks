@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using OpenRasta.Web;
 
 namespace OpenRasta.Api.Basket.Unit.Tests
@@ -14,14 +14,6 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 			var result = basketHandler.Create();
 
 			Assert.That(result, Is.TypeOf<OperationResult.Created>());
-		}
-	}
-
-	public class BasketHandler
-	{
-		public OperationResult Create()
-		{
-			return new OperationResult.Created();
 		}
 	}
 }
