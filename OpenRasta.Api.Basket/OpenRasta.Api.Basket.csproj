@@ -36,6 +36,9 @@
     <Reference Include="OpenRasta">
       <HintPath>..\lib\OpenRasta.dll</HintPath>
     </Reference>
+    <Reference Include="OpenRasta.Hosting.AspNet">
+      <HintPath>..\lib\OpenRasta.Hosting.AspNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasketHandler.cs" />
+    <Compile Include="OpenRasta\ConfigurationSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
