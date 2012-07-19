@@ -21,9 +21,9 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		{
 			var basketHandler = new BasketHandler();
 
-			var result = (OperationResult.Created)basketHandler.Create();
+			var result = basketHandler.Create();
 
-			Assert.IsNotNull(result.CreatedResourceUrl);
+			Assert.IsNotNull(result.RedirectLocation);
 		}
 	}
 }
