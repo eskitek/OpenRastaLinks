@@ -1,3 +1,4 @@
+using System;
 using OpenRasta.Web;
 
 namespace OpenRasta.Api.Basket
@@ -7,7 +8,10 @@ namespace OpenRasta.Api.Basket
 		[HttpOperation(HttpMethod.POST)]
 		public OperationResult Create()
 		{
-			return new OperationResult.Created();
+			return new OperationResult.Created
+					{
+						RedirectLocation = new Uri("http://www.yahoo.com")
+					};
 		}
 	}
 }
