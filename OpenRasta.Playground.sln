@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{32395B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRasta.Api.Basket", "OpenRasta.Api.Basket\OpenRasta.Api.Basket.csproj", "{D623AD23-65F5-4A63-90CD-674EFFB0F86F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRasta.Api.Basket.Unit.Tests", "OpenRasta.Api.Basket.Unit.Tests\OpenRasta.Api.Basket.Unit.Tests.csproj", "{A01BD46C-3C47-4699-829F-26F759D49210}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D623AD23-65F5-4A63-90CD-674EFFB0F86F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A01BD46C-3C47-4699-829F-26F759D49210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01BD46C-3C47-4699-829F-26F759D49210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01BD46C-3C47-4699-829F-26F759D49210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01BD46C-3C47-4699-829F-26F759D49210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
