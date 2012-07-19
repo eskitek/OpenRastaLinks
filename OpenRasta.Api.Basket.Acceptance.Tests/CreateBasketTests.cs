@@ -17,5 +17,17 @@ namespace OpenRasta.Api.Basket.Tests
 
 			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
 		}
+
+		[Test]
+		public void When_I_call_the_create_basket_endpoint_the_response_contains_a_location_header()
+		{
+			var httpRequest = WebRequest.Create("http://localhost/OpenRasta.Api.Basket/Basket");
+			httpRequest.Method = "POST";
+			httpRequest.ContentLength = 0;
+
+			var response = (HttpWebResponse)httpRequest.GetResponse();
+
+			Assert.That(response.Headers["Location"], Is.Not.Null);
+		}
 	}
 }
