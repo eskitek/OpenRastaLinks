@@ -21,7 +21,7 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 	{
 		public OperationResult Create()
 		{
-			throw new System.NotImplementedException();
+			return new OperationResult.Created();
 		}
 	}
 }
