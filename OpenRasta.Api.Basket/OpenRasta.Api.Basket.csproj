@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="BasketHandler.cs" />
     <Compile Include="BasketResource.cs" />
+    <Compile Include="IUriCreator.cs" />
     <Compile Include="OpenRasta\ConfigurationSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

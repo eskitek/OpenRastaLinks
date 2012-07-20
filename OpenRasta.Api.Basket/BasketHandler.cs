@@ -5,6 +5,13 @@ namespace OpenRasta.Api.Basket
 {
 	public class BasketHandler
 	{
+		private readonly IUriCreator _uriCreator;
+
+		public BasketHandler(IUriCreator uriCreator)
+		{
+			_uriCreator = uriCreator;
+		}
+
 		[HttpOperation(HttpMethod.POST)]
 		public OperationResult Create()
 		{
