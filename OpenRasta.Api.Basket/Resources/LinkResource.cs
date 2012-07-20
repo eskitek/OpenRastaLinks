@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace OpenRasta.Api.Basket
+namespace OpenRasta.Api.Basket.Resources
 {
 	[XmlRoot(ElementName = "link")]
 	public class LinkResource

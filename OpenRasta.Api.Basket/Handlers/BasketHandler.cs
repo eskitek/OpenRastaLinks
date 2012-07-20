@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Specialized;
+using OpenRasta.Api.Basket.Resources;
 using OpenRasta.Web;
 
-namespace OpenRasta.Api.Basket
+namespace OpenRasta.Api.Basket.Handlers
 {
 	public class BasketHandler
 	{

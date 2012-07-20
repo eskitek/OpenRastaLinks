@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using NUnit.Framework;
+using OpenRasta.Api.Basket.Resources;
 
 namespace OpenRasta.Api.Basket.Unit.Tests
 {

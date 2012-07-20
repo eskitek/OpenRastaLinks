@@ -1,4 +1,6 @@
-﻿using OpenRasta.Configuration;
+﻿using OpenRasta.Api.Basket.Handlers;
+using OpenRasta.Api.Basket.Resources;
+using OpenRasta.Configuration;
 
 namespace OpenRasta.Api.Basket.OpenRasta
 {

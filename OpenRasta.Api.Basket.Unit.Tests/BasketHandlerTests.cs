@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Specialized;
 using NUnit.Framework;
+using OpenRasta.Api.Basket.Handlers;
+using OpenRasta.Api.Basket.Resources;
 using OpenRasta.Web;
 using Rhino.Mocks;
 
