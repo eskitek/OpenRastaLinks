@@ -64,5 +64,26 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 
 			_uriResolver.AssertWasCalled(ur => ur.CreateUriFor(Arg<Uri>.Is.Anything, Arg<object>.Is.Anything, Arg<string>.Is.Anything, Arg<NameValueCollection>.Is.Anything));
 		}
+
+		[Test]
+		public void Create_sets_the_redirect_location_on_the_returned_operation_result_to_the_uri_returned_by_UriResolver()
+		{
+			var expectedUri = new Uri("http://www.test.com");
+			StubCreateGetBasketUriToReturn(expectedUri);
+
+			var result = _basketHandler.Create();
+
+			Assert.That(result.RedirectLocation, Is.EqualTo(expectedUri));
+		}
+
+		[Test]
+		public void Create_populates_basket_id_on_response_resource()
+		{
+			var result = _basketHandler.Create();
+
+			var basketResource = (BasketResource)result.ResponseResource;
+
+			Assert.That(basketResource.Id, Is.GreaterThan(0), "Basket ID");
+		}
 	}
 }
