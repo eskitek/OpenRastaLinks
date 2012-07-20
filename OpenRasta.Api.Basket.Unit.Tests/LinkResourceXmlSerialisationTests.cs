@@ -8,7 +8,7 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 	[TestFixture]
 	public class LinkResourceXmlSerialisationTests
 	{
-		private static XDocument SerialiseLink(LinkResource linkResource)
+		private static XDocument Serialise(LinkResource linkResource)
 		{
 			var xmlSerialiser = new XmlSerializer(typeof(LinkResource));
 			using (var sw = new StringWriter())
@@ -21,8 +21,15 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Root_element_is_named_link()
 		{
-			var linkXml = SerialiseLink(new LinkResource());
+			var linkXml = Serialise(new LinkResource());
 			Assert.That(linkXml.Root.Name.LocalName, Is.EqualTo("link"));
+		}
+
+		[Test]
+		public void Link_element_has_an_attribute_named_rel()
+		{
+			var linkXml = Serialise(new LinkResource());
+			Assert.That(linkXml.Root.Attribute("rel"), Is.Not.Null);
 		}
 	}
 }
