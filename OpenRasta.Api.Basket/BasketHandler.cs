@@ -29,10 +29,9 @@ namespace OpenRasta.Api.Basket
 					};
 		}
 
-		private static string CreateSelfLink(Uri getBasketLink)
+		private static LinkResource CreateSelfLink(Uri getBasketLink)
 		{
-			const string linkTemplate = "<link uri=\"{0}\" rel=\"{1}\">";
-			return string.Format(linkTemplate, getBasketLink, "self");
+			return new LinkResource{Relation = "self", Uri = getBasketLink.AbsoluteUri};
 		}
 
 		private Uri CreateGetBasketUri(BasketResource basketResource)
