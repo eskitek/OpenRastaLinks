@@ -93,7 +93,8 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 
 			var basketResource = (BasketResource)result.ResponseResource;
 
-			Assert.IsNotNullOrEmpty(basketResource.SelfLink, "Self Link");
+			Assert.IsNotNull(basketResource.SelfLink, "Self Link");
+			Assert.IsInstanceOf<LinkResource>(basketResource.SelfLink, "Self Link");
 		}
 
 		[Test]
@@ -110,5 +111,9 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 
 			Assert.That(basketResource.SelfLink, Is.EqualTo(expectedSelfLink));
 		}
+	}
+
+	public class LinkResource
+	{
 	}
 }

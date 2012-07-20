@@ -8,6 +8,7 @@ namespace OpenRasta.Api.Basket
 		[DataMember(Name = "Id")]
 		public int Id { get; set; }
 
+		[DataMember(Name = "link")]
 		public string SelfLink { get; set; }
 	}
 }
