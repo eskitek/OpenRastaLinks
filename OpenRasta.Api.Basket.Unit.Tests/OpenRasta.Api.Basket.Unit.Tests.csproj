@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BasketHandlerTests.cs" />
     <Compile Include="BasketResourceXmlSerialisationTests.cs" />
+    <Compile Include="LinkResourceXmlSerialisationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
