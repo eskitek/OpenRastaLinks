@@ -18,7 +18,21 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 				xmlSerialiser.Serialize(sw, basketResource);
 				var serialisedBasket = sw.ToString();
 				var basketXml = XDocument.Parse(serialisedBasket);
-				Assert.That(basketXml.Root.Name.LocalName, Is.EqualTo("basket"));
+				Assert.That(basketXml.Root.Name.LocalName, Is.EqualTo("basket"), "Root element");
+			}
+		}
+
+		[Test]
+		public void Basket_element_has_an_attribute_named_id()
+		{
+			var xmlSerialiser = new XmlSerializer(typeof(BasketResource));
+			using (var sw = new StringWriter())
+			{
+				var basketResource = new BasketResource { Id = 4 };
+				xmlSerialiser.Serialize(sw, basketResource);
+				var serialisedBasket = sw.ToString();
+				var basketXml = XDocument.Parse(serialisedBasket);
+				Assert.That(basketXml.Root.Attribute("id"), Is.Not.Null, "basket id attribute");
 			}
 		}
 	}
