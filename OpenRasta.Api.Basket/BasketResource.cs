@@ -8,6 +8,7 @@ namespace OpenRasta.Api.Basket
 		[XmlAttribute("id")]
 		public int Id { get; set; }
 
+		[XmlElement("link")]
 		public LinkResource SelfLink { get; set; }
 	}
 }

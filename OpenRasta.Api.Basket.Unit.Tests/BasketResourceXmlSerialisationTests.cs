@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using NUnit.Framework;
@@ -8,7 +9,7 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 	[TestFixture]
 	public class BasketResourceXmlSerialisationTests
 	{
-		private static XDocument SerialiseBasket(BasketResource basketResource)
+		private static XDocument Serialise(BasketResource basketResource)
 		{
 			var xmlSerialiser = new XmlSerializer(typeof(BasketResource));
 			using (var sw = new StringWriter())
@@ -22,14 +23,14 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Root_element_is_named_basket()
 		{
-			var basketXml = SerialiseBasket(new BasketResource());
+			var basketXml = Serialise(new BasketResource());
 			Assert.That(basketXml.Root.Name.LocalName, Is.EqualTo("basket"));
 		}
 
 		[Test]
 		public void Basket_element_has_an_attribute_named_id()
 		{
-			var basketXml = SerialiseBasket(new BasketResource());
+			var basketXml = Serialise(new BasketResource());
 			Assert.That(basketXml.Root.Attribute("id"), Is.Not.Null);
 		}
 
@@ -37,8 +38,23 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		public void Id_is_populated_with_correct_value()
 		{
 			const int expected = 433;
-			var basketXml = SerialiseBasket(new BasketResource { Id = expected });
+			var basketXml = Serialise(new BasketResource { Id = expected });
 			Assert.That(basketXml.Root.Attribute("id").Value, Is.EqualTo(expected.ToString()));
+		}
+
+		[Test]
+		public void Basket_element_has_a_self_link_element()
+		{
+			var selfLink = new LinkResource { Relation = "self", Uri = "doody"};
+			var basket = new BasketResource { SelfLink = selfLink };
+
+			var basketXml = Serialise(basket);
+			
+			var selfLinkElement = basketXml.Root.Elements("link").Where(l => l.Attribute("rel").Value == "self").Single();
+			Assert.That(selfLinkElement, Is.Not.Null);
+
+			var selfLinkUriAttribute = selfLinkElement.Attribute("uri").Value;
+			Assert.That(selfLinkUriAttribute, Is.EqualTo(selfLink.Uri));
 		}
 	}
 }
