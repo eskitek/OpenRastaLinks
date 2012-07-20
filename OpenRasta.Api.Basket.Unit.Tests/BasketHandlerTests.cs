@@ -25,5 +25,16 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 
 			Assert.IsNotNull(result.RedirectLocation);
 		}
+
+		[Test]
+		public void Create_sets_the_response_resource_on_the_returned_operation_result()
+		{
+			var basketHandler = new BasketHandler();
+
+			var result = basketHandler.Create();
+
+			Assert.IsNotNull(result.ResponseResource);
+			Assert.IsInstanceOf<BasketResource>(result.ResponseResource);
+		}
 	}
 }
