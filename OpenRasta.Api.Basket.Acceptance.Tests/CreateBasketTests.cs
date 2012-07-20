@@ -9,7 +9,7 @@ namespace OpenRasta.Api.Basket.Tests
 	[TestFixture]
 	public class CreateBasketTests
 	{
-		private const string CreateBasketUri = "http://localhost/OpenRasta.Api.Basket/Basket";
+		private const string BasketUri = "http://localhost/OpenRasta.Api.Basket/Basket";
 
 		private static HttpWebResponse GetCreateBasketResponse(WebRequest httpRequest)
 		{
@@ -18,13 +18,13 @@ namespace OpenRasta.Api.Basket.Tests
 
 		private static WebRequest CreateCreateBasketRequest()
 		{
-			var httpRequest = WebRequest.Create(CreateBasketUri);
+			var httpRequest = WebRequest.Create(BasketUri);
 			httpRequest.Method = "POST";
 			httpRequest.ContentLength = 0;
 			return httpRequest;
 		}
 
-		private static string GetResponseBody(HttpWebResponse response)
+		private static string GetResponseBody(WebResponse response)
 		{
 			string responseBody;
 			using (var responseStream = response.GetResponseStream())
@@ -35,6 +35,18 @@ namespace OpenRasta.Api.Basket.Tests
 				}
 			}
 			return responseBody;
+		}
+
+		private static int GetBasketId(XDocument responseDocument)
+		{
+			return Int32.Parse(responseDocument.Root.Element("Id").Value);
+		}
+
+		private static string CreateGetBasketUrl(int newBasketId)
+		{
+			const string getBasketUriTemplate = BasketUri + "/{0}";
+			var getBasketUrl = string.Format(getBasketUriTemplate, newBasketId);
+			return getBasketUrl;
 		}
 
 		[Test]
@@ -77,13 +89,11 @@ namespace OpenRasta.Api.Basket.Tests
 
 			var locationHeader = response.Headers["Location"];
 
-			var responseBody = GetResponseBody(response);
-			var xDocument = XDocument.Parse(responseBody);
-			var newBasketId = Int32.Parse(xDocument.Root.Element("Id").Value);
+			var responseDocument = XDocument.Parse(GetResponseBody(response));
+			var newBasketId = GetBasketId(responseDocument);
+			var getBasketUrlForNewBasket = CreateGetBasketUrl(newBasketId);
 
-			const string getBasketUriTemplate = "http://localhost/OpenRasta.Api.Basket/Basket/{0}";
-			var getBasketUrl = string.Format(getBasketUriTemplate, newBasketId);
-			Assert.That(locationHeader, Is.EqualTo(getBasketUrl));
+			Assert.That(locationHeader, Is.EqualTo(getBasketUrlForNewBasket));
 		}
 	}
 }
