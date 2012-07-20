@@ -18,7 +18,7 @@ namespace OpenRasta.Api.Basket
 		[HttpOperation(HttpMethod.POST)]
 		public OperationResult Create()
 		{
-			var basketResource = new BasketResource { Id = 1 };
+			var basketResource = new BasketResource { Id = 1, SelfLink = "blah"};
 			return new OperationResult.Created
 					{
 						RedirectLocation = GetRedirectLocation(basketResource),
