@@ -1,14 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace OpenRasta.Api.Basket
 {
-	[DataContract(Name = "Basket", Namespace = "")]
+	[XmlRoot(ElementName = "basket")]
 	public class BasketResource
 	{
-		[DataMember(Name = "Id")]
 		public int Id { get; set; }
 
-		[DataMember(Name = "link")]
 		public LinkResource SelfLink { get; set; }
 	}
 }

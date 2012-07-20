@@ -12,7 +12,7 @@ namespace OpenRasta.Api.Basket.OpenRasta
 					.AtUri("/Basket")
 					.And.AtUri("/Basket/{id}")
 					.HandledBy<BasketHandler>()
-					.AsXmlDataContract();
+					.AsXmlSerializer();
 			}
 		}
 	}
