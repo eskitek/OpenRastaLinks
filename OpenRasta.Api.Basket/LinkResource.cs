@@ -8,6 +8,7 @@ namespace OpenRasta.Api.Basket
 		[XmlAttribute(AttributeName = "rel")]
 		public string Relation { get; set; }
 
+		[XmlAttribute(AttributeName = "uri")]
 		public string Uri { get; set; }
 	}
 }

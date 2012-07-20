@@ -39,5 +39,20 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 			var linkXml = Serialise(new LinkResource { Relation = relation });
 			Assert.That(linkXml.Root.Attribute("rel").Value, Is.EqualTo(relation));
 		}
+
+		[Test]
+		public void Link_element_has_an_attribute_named_uri()
+		{
+			var linkXml = Serialise(new LinkResource { Uri = "clickme" });
+			Assert.That(linkXml.Root.Attribute("uri"), Is.Not.Null);
+		}
+
+		[Test]
+		public void Uri_is_populated_with_correct_value()
+		{
+			const string uri = "clickme";
+			var linkXml = Serialise(new LinkResource { Uri = uri });
+			Assert.That(linkXml.Root.Attribute("uri").Value, Is.EqualTo(uri));
+		}
 	}
 }
