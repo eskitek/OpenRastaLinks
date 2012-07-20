@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
 using NUnit.Framework;
 
 namespace OpenRasta.Api.Basket.Tests
@@ -25,9 +26,28 @@ namespace OpenRasta.Api.Basket.Tests
 			httpRequest.Method = "POST";
 			httpRequest.ContentLength = 0;
 
-			var response = (HttpWebResponse)httpRequest.GetResponse();
+			var response = httpRequest.GetResponse();
 
 			Assert.That(response.Headers["Location"], Is.Not.Null);
+		}
+
+		[Test]
+		public void When_I_call_the_create_basket_endpoint_the_response_contains_a_response_body()
+		{
+			var httpRequest = WebRequest.Create("http://localhost/OpenRasta.Api.Basket/Basket");
+			httpRequest.Method = "POST";
+			httpRequest.ContentLength = 0;
+
+			var response = httpRequest.GetResponse();
+
+			using (var responseStream = response.GetResponseStream())
+			{
+				using (var reader = new StreamReader(responseStream))
+				{
+					var responseBody = reader.ReadToEnd();
+					Assert.IsNotNullOrEmpty(responseBody, "Response Body");
+				}
+			}
 		}
 	}
 }
