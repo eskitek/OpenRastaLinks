@@ -1,4 +1,3 @@
-using System;
 using OpenRasta.Web;
 
 namespace OpenRasta.Api.Basket
@@ -15,10 +14,11 @@ namespace OpenRasta.Api.Basket
 		[HttpOperation(HttpMethod.POST)]
 		public OperationResult Create()
 		{
+			var basketResource = new BasketResource();
 			return new OperationResult.Created
 					{
-						RedirectLocation = new Uri("http://www.yahoo.com"), 
-						ResponseResource = new BasketResource()
+						RedirectLocation = _uriCreator.CreateGetBasketUri(basketResource), 
+						ResponseResource = basketResource
 					};
 		}
 	}

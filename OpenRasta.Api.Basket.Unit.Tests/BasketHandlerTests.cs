@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using OpenRasta.Web;
 using Rhino.Mocks;
@@ -17,6 +18,11 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 			_basketHandler = new BasketHandler(_uriCreator);
 		}
 
+		private void StubCreateGetBasketUriToReturn(string url)
+		{
+			_uriCreator.Stub(uc => uc.CreateGetBasketUri(Arg<BasketResource>.Is.Anything)).Return(new Uri(url));
+		}
+
 		[Test]
 		public void Create_returns_Created_operation_result()
 		{
@@ -28,6 +34,8 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Create_sets_the_redirect_location_on_the_returned_operation_result()
 		{
+			StubCreateGetBasketUriToReturn("http://www.someurl.com");
+
 			var result = _basketHandler.Create();
 
 			Assert.IsNotNull(result.RedirectLocation);
