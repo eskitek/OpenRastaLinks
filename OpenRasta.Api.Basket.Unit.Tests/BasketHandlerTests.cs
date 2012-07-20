@@ -53,12 +53,9 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Create_calls_UriCreator_to_get_the_resource_location_for_the_new_basket()
 		{
-			var uriCreator = MockRepository.GenerateStub<IUriCreator>();
-			var basketHandler = new BasketHandler(uriCreator);
+			var result = _basketHandler.Create();
 
-			var result = basketHandler.Create();
-
-			uriCreator.AssertWasCalled(uc => uc.CreateGetBasketUri(result.ResponseResource as BasketResource));
+			_uriCreator.AssertWasCalled(uc => uc.CreateGetBasketUri(result.ResponseResource as BasketResource));
 		}
 	}
 }
