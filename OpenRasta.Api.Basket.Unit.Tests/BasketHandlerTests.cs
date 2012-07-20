@@ -95,5 +95,22 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 
 			Assert.IsNotNullOrEmpty(basketResource.SelfLink, "Self Link");
 		}
+
+		[Test]
+		public void Create_populates_self_link_on_response_resource_with_correct_value()
+		{
+			const string someUrl = "http://www.test.com";
+			StubCreateGetBasketUriToReturn(someUrl);
+
+			var result = _basketHandler.Create();
+
+			var basketResource = (BasketResource)result.ResponseResource;
+
+			const string linkRel = "self";
+			const string linkUri = someUrl;
+			var expectedSelfLink = string.Format("<link uri=\"{0}\" rel=\"{1}\">", linkUri, linkRel);
+
+			Assert.That(basketResource.SelfLink, Is.EqualTo(expectedSelfLink));
+		}
 	}
 }
