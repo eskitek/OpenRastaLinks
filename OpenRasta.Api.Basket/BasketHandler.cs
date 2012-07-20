@@ -18,15 +18,24 @@ namespace OpenRasta.Api.Basket
 		[HttpOperation(HttpMethod.POST)]
 		public OperationResult Create()
 		{
-			var basketResource = new BasketResource { Id = 1, SelfLink = "blah"};
+			var basketResource = new BasketResource { Id = 1 };
+			var getBasketUri = CreateGetBasketUri(basketResource);
+			var selfLink = CreateSelfLink(getBasketUri);
+			basketResource.SelfLink = selfLink;
 			return new OperationResult.Created
 					{
-						RedirectLocation = GetRedirectLocation(basketResource),
+						RedirectLocation = getBasketUri,
 						ResponseResource = basketResource
 					};
 		}
 
-		private Uri GetRedirectLocation(BasketResource basketResource)
+		private static string CreateSelfLink(Uri getBasketLink)
+		{
+			const string linkTemplate = "<link uri=\"{0}\" rel=\"{1}\">";
+			return string.Format(linkTemplate, getBasketLink, "self");
+		}
+
+		private Uri CreateGetBasketUri(BasketResource basketResource)
 		{
 			return _uriResolver.CreateUriFor(
 				_communicationContext.ApplicationBaseUri,

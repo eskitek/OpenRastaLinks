@@ -99,16 +99,14 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Create_populates_self_link_on_response_resource_with_correct_value()
 		{
-			const string someUrl = "http://www.test.com";
-			StubCreateGetBasketUriToReturn(someUrl);
+			var someUri = new Uri("http://www.test.com");
+			StubCreateGetBasketUriToReturn(someUri);
 
 			var result = _basketHandler.Create();
 
 			var basketResource = (BasketResource)result.ResponseResource;
 
-			const string linkRel = "self";
-			const string linkUri = someUrl;
-			var expectedSelfLink = string.Format("<link uri=\"{0}\" rel=\"{1}\">", linkUri, linkRel);
+			var expectedSelfLink = string.Format("<link uri=\"{0}\" rel=\"self\">", someUri.AbsoluteUri);
 
 			Assert.That(basketResource.SelfLink, Is.EqualTo(expectedSelfLink));
 		}
