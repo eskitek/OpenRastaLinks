@@ -9,6 +9,6 @@ namespace OpenRasta.Api.Basket
 		public int Id { get; set; }
 
 		[DataMember(Name = "link")]
-		public string SelfLink { get; set; }
+		public LinkResource SelfLink { get; set; }
 	}
 }

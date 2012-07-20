@@ -11,11 +11,15 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 	{
 		private IUriResolver _uriResolver;
 		private BasketHandler _basketHandler;
+		private Uri _stubbedGetBasketUri;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_uriResolver = MockRepository.GenerateStub<IUriResolver>();
+			_stubbedGetBasketUri = new Uri("http://www.test.com");
+			StubCreateGetBasketUriToReturn(_stubbedGetBasketUri);
+
 			var communicationContext = MockRepository.GenerateStub<ICommunicationContext>();
 			_basketHandler = new BasketHandler(_uriResolver, communicationContext);
 		}
@@ -41,8 +45,6 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Create_sets_the_redirect_location_on_the_returned_operation_result()
 		{
-			StubCreateGetBasketUriToReturn("http://www.someurl.com");
-
 			var result = _basketHandler.Create();
 
 			Assert.IsNotNull(result.RedirectLocation);
@@ -68,12 +70,9 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Create_sets_the_redirect_location_on_the_returned_operation_result_to_the_uri_returned_by_UriResolver()
 		{
-			var expectedUri = new Uri("http://www.test.com");
-			StubCreateGetBasketUriToReturn(expectedUri);
-
 			var result = _basketHandler.Create();
 
-			Assert.That(result.RedirectLocation, Is.EqualTo(expectedUri));
+			Assert.That(result.RedirectLocation, Is.EqualTo(_stubbedGetBasketUri));
 		}
 
 		[Test]
@@ -100,20 +99,12 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		[Test]
 		public void Create_populates_self_link_on_response_resource_with_correct_value()
 		{
-			var someUri = new Uri("http://www.test.com");
-			StubCreateGetBasketUriToReturn(someUri);
-
 			var result = _basketHandler.Create();
 
 			var basketResource = (BasketResource)result.ResponseResource;
 
-			var expectedSelfLink = string.Format("<link uri=\"{0}\" rel=\"self\">", someUri.AbsoluteUri);
-
-			Assert.That(basketResource.SelfLink, Is.EqualTo(expectedSelfLink));
+			Assert.That(basketResource.SelfLink.Relation, Is.EqualTo("self"));
+			Assert.That(basketResource.SelfLink.Uri, Is.EqualTo(_stubbedGetBasketUri.AbsoluteUri));
 		}
-	}
-
-	public class LinkResource
-	{
 	}
 }
