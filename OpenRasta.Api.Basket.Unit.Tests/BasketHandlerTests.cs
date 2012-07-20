@@ -85,5 +85,15 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 
 			Assert.That(basketResource.Id, Is.GreaterThan(0), "Basket ID");
 		}
+
+		[Test]
+		public void Create_populates_self_link_on_response_resource()
+		{
+			var result = _basketHandler.Create();
+
+			var basketResource = (BasketResource)result.ResponseResource;
+
+			Assert.That(basketResource.SelfLink, Is.Not.Null, "Self Link");
+		}
 	}
 }
