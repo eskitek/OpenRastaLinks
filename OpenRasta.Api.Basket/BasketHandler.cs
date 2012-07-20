@@ -10,7 +10,8 @@ namespace OpenRasta.Api.Basket
 		{
 			return new OperationResult.Created
 					{
-						RedirectLocation = new Uri("http://www.yahoo.com")
+						RedirectLocation = new Uri("http://www.yahoo.com"), 
+						ResponseResource = new BasketResource()
 					};
 		}
 	}
