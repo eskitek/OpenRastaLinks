@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Xml.Linq;
 using NUnit.Framework;
@@ -94,6 +95,27 @@ namespace OpenRasta.Api.Basket.Tests
 			var getBasketUrlForNewBasket = CreateGetBasketUrl(newBasketId);
 
 			Assert.That(locationHeader, Is.EqualTo(getBasketUrlForNewBasket));
+		}
+
+		[Test]
+		public void When_I_call_the_create_basket_endpoint_the_response_contains_a_link_to_get_the_basket()
+		{
+			var request = CreateCreateBasketRequest();
+
+			var response = GetCreateBasketResponse(request);
+
+			var responseDocument = XDocument.Parse(GetResponseBody(response));
+
+			var links = responseDocument.Root.Elements("link");
+			Assert.Greater(links.Count(), 0, "Response doesn't have any links");
+
+			var selfLink = links.Where(link => link.Attribute("rel").Value == "self").SingleOrDefault();
+			Assert.IsNotNull(selfLink, "Response doesn't contain a self link");
+
+			var newBasketId = GetBasketId(responseDocument);
+			var getBasketUrlForNewBasket = CreateGetBasketUrl(newBasketId);
+			var selfLinkUri = selfLink.Attribute("uri").Value;
+			Assert.That(selfLinkUri, Is.EqualTo(getBasketUrlForNewBasket), "Self link uri is wrong");
 		}
 	}
 }
