@@ -31,5 +31,13 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 			var linkXml = Serialise(new LinkResource { Relation = "something" });
 			Assert.That(linkXml.Root.Attribute("rel"), Is.Not.Null);
 		}
+
+		[Test]
+		public void Rel_is_populated_with_correct_value()
+		{
+			const string relation = "something";
+			var linkXml = Serialise(new LinkResource { Relation = relation });
+			Assert.That(linkXml.Root.Attribute("rel").Value, Is.EqualTo(relation));
+		}
 	}
 }
