@@ -10,7 +10,7 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 	{
 		private static XDocument SerialiseBasket(BasketResource basketResource)
 		{
-			var xmlSerialiser = new XmlSerializer(typeof (BasketResource));
+			var xmlSerialiser = new XmlSerializer(typeof(BasketResource));
 			using (var sw = new StringWriter())
 			{
 				xmlSerialiser.Serialize(sw, basketResource);
@@ -31,6 +31,14 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		{
 			var basketXml = SerialiseBasket(new BasketResource());
 			Assert.That(basketXml.Root.Attribute("id"), Is.Not.Null);
+		}
+
+		[Test]
+		public void Id_is_populated_with_correct_value()
+		{
+			const int expected = 433;
+			var basketXml = SerialiseBasket(new BasketResource { Id = expected });
+			Assert.That(basketXml.Root.Attribute("id").Value, Is.EqualTo(expected.ToString()));
 		}
 	}
 }
