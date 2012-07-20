@@ -40,7 +40,7 @@ namespace OpenRasta.Api.Basket.Tests
 
 		private static int GetBasketId(XDocument responseDocument)
 		{
-			return Int32.Parse(responseDocument.Root.Element("Id").Value);
+			return Int32.Parse(responseDocument.Root.Attribute("id").Value);
 		}
 
 		private static string CreateGetBasketUrl(int newBasketId)
