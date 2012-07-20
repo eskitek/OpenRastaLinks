@@ -8,8 +8,9 @@ namespace OpenRasta.Api.Basket.OpenRasta
 		{
 			using (OpenRastaConfiguration.Manual)
 			{
-				ResourceSpace.Has.ResourcesOfType<object>()
+				ResourceSpace.Has.ResourcesOfType<BasketResource>()
 					.AtUri("/Basket")
+					.And.AtUri("/Basket/{id}")
 					.HandledBy<BasketHandler>()
 					.AsXmlDataContract();
 			}

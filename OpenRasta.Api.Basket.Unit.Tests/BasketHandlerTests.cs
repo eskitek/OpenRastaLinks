@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Specialized;
 using NUnit.Framework;
 using OpenRasta.Web;
 using Rhino.Mocks;
@@ -8,19 +9,20 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 	[TestFixture]
 	public class BasketHandlerTests
 	{
-		private IUriCreator _uriCreator;
+		private IUriResolver _uriResolver;
 		private BasketHandler _basketHandler;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_uriCreator = MockRepository.GenerateStub<IUriCreator>();
-			_basketHandler = new BasketHandler(_uriCreator);
+			_uriResolver = MockRepository.GenerateStub<IUriResolver>();
+			var communicationContext = MockRepository.GenerateStub<ICommunicationContext>();
+			_basketHandler = new BasketHandler(_uriResolver, communicationContext);
 		}
 
 		private void StubCreateGetBasketUriToReturn(Uri uri)
 		{
-			_uriCreator.Stub(uc => uc.CreateGetBasketUri(Arg<BasketResource>.Is.Anything)).Return(uri);
+			_uriResolver.Stub(ur => ur.CreateUriFor(Arg<Uri>.Is.Anything, Arg<object>.Is.Anything, Arg<string>.Is.Anything, Arg<NameValueCollection>.Is.Anything)).Return(uri);
 		}
 
 		private void StubCreateGetBasketUriToReturn(string url)
@@ -56,22 +58,11 @@ namespace OpenRasta.Api.Basket.Unit.Tests
 		}
 
 		[Test]
-		public void Create_calls_UriCreator_to_get_the_resource_location_for_the_new_basket()
+		public void Create_calls_UriResolver_to_get_the_resource_location_for_the_new_basket()
 		{
-			var result = _basketHandler.Create();
+			_basketHandler.Create();
 
-			_uriCreator.AssertWasCalled(uc => uc.CreateGetBasketUri(result.ResponseResource as BasketResource));
-		}
-
-		[Test]
-		public void Create_sets_the_redirect_location_on_the_returned_operation_result_to_the_uri_returned_from_CreateGetBasketUri()
-		{
-			var someUri = new Uri("http://www.someurl.com");
-			StubCreateGetBasketUriToReturn(someUri);
-
-			var result = _basketHandler.Create();
-
-			Assert.AreEqual(result.RedirectLocation, someUri);
+			_uriResolver.AssertWasCalled(ur => ur.CreateUriFor(Arg<Uri>.Is.Anything, Arg<object>.Is.Anything, Arg<string>.Is.Anything, Arg<NameValueCollection>.Is.Anything));
 		}
 	}
 }
